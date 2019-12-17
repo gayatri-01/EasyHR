@@ -1,0 +1,41 @@
+<!--Toolbar-->
+<!--can be primary accent or warn-->
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button>
+        <!--Opens/closes sidenav-->
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <h1>EasyHR</h1>
+      <!--Added to align nav items to right-->
+      <span class="filler"></span>
+      <div>
+        <a mat-button [routerLink]="'/'"> Home </a>
+        <a *ngIf="user" mat-button [routerLink]="'/employee'"> Manage Employees </a>
+        <a *ngIf="!user" mat-button [routerLink]="'/login'"> Login </a>
+        <a *ngIf="user" mat-button>{{user}} </a>
+  
+  
+        <img *ngIf="user" src="../assets/images/avatar.png" [matMenuTriggerFor]="profileMenu" alt="Avatar" class="avatar">
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item>Profile</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <!--Side Nav Bar-->
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav>
+      <!--Using one-way data binding-->
+      <mat-nav-list style="width: 30vh;">
+        <a mat-list-item (click)="sidenav.toggle(); Hello();"> Hello </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div style="height: 88vh;">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
